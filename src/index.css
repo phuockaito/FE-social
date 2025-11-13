@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Custom Message Styles */
+.custom-message {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    padding: 12px 16px !important;
+    font-weight: 500 !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.custom-message-error {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2) !important;
+    padding: 12px 16px !important;
+    font-weight: 500 !important;
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+    border: 1px solid rgba(239, 68, 68, 0.2) !important;
+}
+
+.custom-message-warning {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2) !important;
+    padding: 12px 16px !important;
+    font-weight: 500 !important;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+    border: 1px solid rgba(251, 191, 36, 0.2) !important;
+}
+
+/* Ant Design Message Container */
+.ant-message {
+    top: 80px !important;
+}
+
+.ant-message .ant-message-notice {
+    margin-bottom: 12px !important;
+}
+
+.ant-message .ant-message-notice-content {
+    background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}

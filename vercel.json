@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:match*",
+            "destination": "https://be-social-cyan.vercel.app/:match*"
+        },
+        {
+            "source": "/:match*",
+            "destination": "/"
+        }
+    ]
+}
