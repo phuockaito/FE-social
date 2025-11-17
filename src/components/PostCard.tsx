@@ -1,10 +1,9 @@
 import { memo } from "react";
-import { Card, Button, message, Space, Typography } from "antd";
+import { Card, Button, message, Space, Typography, Tooltip } from "antd";
 import {
     LikeOutlined,
     DislikeOutlined,
     UserOutlined,
-    ClockCircleOutlined,
 } from "@ant-design/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postApi, type Post } from "../api";
@@ -131,23 +130,23 @@ export const PostCard = memo(({ post, userEmail }: PostCardProps) => {
         >
             <div className="space-y-4">
                 {/* Header */}
-                <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-md">
+                        <div className="w-10 h-10 bg-gradient-to-br  from-blue-400 to-indigo-500 rounded-full flex items-center justify-center shadow-md">
                             <UserOutlined className="text-white text-sm" />
                         </div>
-                        <div>
+                        <div className="flex-1 flex-col flex">
                             <Typography.Text strong className="text-gray-800 text-base">
                                 {post.email}
                             </Typography.Text>
+                            <Typography.Text type="secondary" className="text-xs! font-medium">
+                                <Tooltip placement="bottomLeft" title={dayjs(post.created_at).format("DD/MM/YYYY HH:mm")}>
+                                    {dayjs(post.created_at).fromNow()}
+                                </Tooltip>
+                            </Typography.Text>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 rounded-full">
-                        <ClockCircleOutlined className="text-gray-400 text-xs" />
-                        <Typography.Text type="secondary" className="text-xs font-medium">
-                            {dayjs(post.created_at).fromNow()}
-                        </Typography.Text>
-                    </div>
+
                 </div>
 
                 {/* Content */}
