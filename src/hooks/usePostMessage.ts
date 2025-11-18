@@ -40,7 +40,7 @@ export const usePostMessage = (options: UsePostMessageOptions = {}) => {
 
             // Check if message type matches
             if (event.data?.type === messageType) {
-                const receivedEmail = event.data.data.email;
+                const {email: receivedEmail} = event.data.data as {email?: string};
 
                 if (receivedEmail && typeof receivedEmail === "string") {
                     // Validate email format
