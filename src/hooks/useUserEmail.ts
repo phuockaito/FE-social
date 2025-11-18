@@ -8,7 +8,7 @@ export const useUserEmail = () => {
     const [userEmail, setUserEmail] = useState<string>("");
 
     usePostMessage({
-        messageType: "SET_EMAIL",
+        messageType: "IFRAME_RESPONSE",
         onMessage: (email) => {
             setUserEmail(email);
         },

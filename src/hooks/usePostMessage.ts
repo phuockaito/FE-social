@@ -18,7 +18,7 @@ interface UsePostMessageOptions {
 export const usePostMessage = (options: UsePostMessageOptions = {}) => {
     const {
         allowedOrigins = ["*"], // Allow all origins by default, can be restricted
-        messageType = "SET_EMAIL",
+        messageType = "IFRAME_RESPONSE",
         onMessage,
     } = options;
 

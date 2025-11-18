@@ -185,7 +185,7 @@ Hook để nhận email từ parent window qua postMessage:
 import { usePostMessage } from "./hooks/usePostMessage";
 
 usePostMessage({
-    messageType: "SET_EMAIL",
+    messageType: "IFRAME_RESPONSE",
     allowedOrigins: ["https://yourdomain.com"], // Optional
     onMessage: (email) => {
         console.log("Email received:", email);
