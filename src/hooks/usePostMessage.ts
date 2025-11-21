@@ -14,7 +14,7 @@ interface UsePostMessageOptions {
 }
 
 interface PostMessageResponse {
-    launch_token: string;
+    token: string;
     app_session_id: string;
 }
 
@@ -46,9 +46,9 @@ export const usePostMessage = (options: UsePostMessageOptions = {}) => {
 
             // Check if message type matches
             if (event.data?.type === messageType) {
-                const { launch_token } = event.data.data as PostMessageResponse;
-                if (launch_token) {
-                    verifyToken(launch_token).then((payload) => {
+                const { token } = event.data.data as PostMessageResponse;
+                if (token) {
+                    verifyToken(token).then((payload) => {
                         const { sub } = payload as { sub: string };
                         if (sub) {
                             setEmail(sub);
