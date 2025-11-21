@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { verifyToken } from "../utils";
 
 interface PostMessageData {
     type: string;
@@ -10,6 +11,11 @@ interface UsePostMessageOptions {
     allowedOrigins?: string[];
     messageType?: string;
     onMessage?: (email: string) => void;
+}
+
+interface PostMessageResponse {
+    launch_token: string;
+    app_session_id: string;
 }
 
 /**
@@ -40,30 +46,22 @@ export const usePostMessage = (options: UsePostMessageOptions = {}) => {
 
             // Check if message type matches
             if (event.data?.type === messageType) {
-                const {email: receivedEmail} = event.data.data as {email?: string};
-
-                if (receivedEmail && typeof receivedEmail === "string") {
-                    // Validate email format
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (emailRegex.test(receivedEmail)) {
-                        setEmail(receivedEmail);
-                        setIsFromPostMessage(true);
-                        onMessage?.(receivedEmail);
-
-                        // Optionally send confirmation back to parent
-                        if (event.source && event.source !== window) {
-                            (event.source as Window).postMessage(
-                                {
-                                    type: "EMAIL_RECEIVED",
-                                    email: receivedEmail,
-                                    success: true,
-                                },
-                                event.origin
-                            );
+                const { launch_token } = event.data.data as PostMessageResponse;
+                if (launch_token) {
+                    verifyToken(launch_token).then((payload) => {
+                        const { sub } = payload as { sub: string };
+                        if (sub) {
+                            setEmail(sub);
+                            setIsFromPostMessage(true);
+                            onMessage?.(sub);
+                            if (event.source && event.source !== window) {
+                                (event.source as Window).postMessage(
+                                    { type: "EMAIL_RECEIVED", email: sub, success: true },
+                                    event.origin
+                                );
+                            }
                         }
-                    } else {
-                        console.warn("Invalid email format received:", receivedEmail);
-                    }
+                    })
                 }
             }
         };
